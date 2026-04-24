@@ -263,7 +263,42 @@ Both searches use RandomizedSearchCV with n_iter = 3–5, cv = 5, and scoring = 
 
 ---
 
-#
+## Model Deployment
+
+The final XGBoost model is saved using Python's Pickle library for deployment:
+
+```python
+# Save the trained XGBoost model
+import pickle
+pickle_out = open("classifier.pkl", "wb")
+pickle.dump(classifier, pickle_out)
+pickle_out.close()
+
+# Save the StandardScaler object
+pickle_out = open("sc.pkl", "wb")
+pickle.dump(sc, pickle_out)
+pickle_out.close()
+```
+
+### Loading the Model for Prediction
+
+```python
+import pickle
+
+# Load model and scaler
+model = pickle.load(open("classifier.pkl", "rb"))
+scaler = pickle.load(open("sc.pkl", "rb"))
+
+# Scale new input and predict
+input_scaled = scaler.transform(new_applicant_data)
+prediction = model.predict(input_scaled)
+
+# Output: 1 = Loan Approved, 0 = Loan Rejected
+```
+
+Both files are required — the scaler must be applied to any new data before passing it to the model, using the same normalization parameters learned during training.
+
+---
 
 ## Key Insights
 
@@ -293,105 +328,15 @@ Married applicants, particularly males, appear more frequently in the approved s
 loan-eligibility-prediction/
 │
 ├── Loan_Eligibility_Prediction_using_Machine_Learning.ipynb    Main Notebook
-├── dataset.csv                                                 Dataset
-├── classifier.pkl                                              Saved XGBoost model
-├── sc.pkl                                                      Saved StandardScaler
+├──loan_dataset.csv                                   Dataset
 └── README.md                                                   Project documentation
 ```
 
 ---
 
-
-<<<<<<< HEAD
-In this project, we apply machine learning techniques and develop a web based application to predict the loan eligibility of new applicant.
-
-
-### Dataset Information
-Variable	          Description
-
-Loan_ID	            Unique Loan ID
-
-Gender	            Male/ Female
-
-Married	            Applicant married (Y/N)
-
-Dependents	        Number of dependents
-
-Education	         Applicant Education (Graduate/ Under Graduate)
-
-Self_Employed	      Self employed (Y/N)
-
-ApplicantIncome	    Applicant income
-
-CoapplicantIncome	  Coapplicant income
-
-LoanAmount	Loan    amount in thousands
-
-Loan_Amount_Term	  Term of loan in months
-
-Credit_History	    credit history meets guidelines
-
-Property_Area	      Urban/ Semi Urban/ Rural
-
-Loan_Status	        Loan approved (Y/N)
-
-
-Final dataset: 615 observations
-
-Dataset used in this project can be found here : [Dataset] https://www.kaggle.com/datasets/ninzaami/loan-predication
-
-
-### Motivation
-The motivation was to use machine learning experiments to try to automate the loan eligibility process with low risk & better recovery.
-
-Idea is to implement the end to end machine learning project while using free deployment platform like Heroku.
-
-
-
-### Demo
-[Visit this link for Web application](https://loan-approval-system-using-machine-learning-n5uqst8tahumui6eeh.streamlit.app/)
-
-Web application Snapshot:
-
-<img target="_blank" src="https://github.com/dipakml/Prediction-of-Modernized-Loan-Approval-System-/blob/master/webapp_snapshot.png" width=800>
-
-
-
-### Steps in the project execution
-
-- Data gathering 
-- Descriptive Analysis 
-- Data Visualizations 
-- Data Preprocessing 
-- Data Modelling 
-- Model Evaluation 
-- Model Deployment 
-
-### Technical Aspect 
-
-- Training a machine learning model using scikit-learn. 
-- Building and hosting a streamlit web app on Heroku. 
-- A user has to input key features.
-- Once it gets all the fields information , the prediction is displayed. 
-
-
-### Technologies Used  
-![](https://forthebadge.com/images/badges/made-with-python.svg) 
-
-<img target="_blank" src="https://github.com/dipakml/Prediction-of-Concrete-Compressive-Strength/blob/master/Logo_Images/streamlit.png" width=160>
-<img target="_blank" src="https://github.com/dipakml/Prediction-of-Concrete-Compressive-Strength/blob/master/Logo_Images/heroku.png" width=160>
-<img target="_blank" src="https://github.com/dipakml/Prediction-of-Concrete-Compressive-Strength/blob/master/Logo_Images/numpy.png" width=160>
-<img target="_blank" src="https://github.com/dipakml/Prediction-of-Concrete-Compressive-Strength/blob/master/Logo_Images/pandas.jpeg" width=160>
-
-### Installation 
-- Clone this repository and unzip it.
-- After downloading, cd into the working directory.
-- Begin a new virtual environment with Python 3 and activate it.
-- Install the required packages using pip install -r requirements.txt
-- Execute the command: streamlit run app.py
-=======
+- 📈Model Comparison ![Model Comparison](loan_viz_output\11_model_comparison_bar.png)
+- 🏥Loan Bucket Approval ![Bucket Approval](loan_viz_output\10_loan_bucket_approval.png)
 This Loan Eligibility Prediction project demonstrates a complete machine learning pipeline — from raw data exploration and cleaning through to a deployed, serialized model ready for integration into a banking application.
->>>>>>> 9c1a2ee (Updates)
 
 By addressing class imbalance with SMOTE, comparing seven algorithms, and fine-tuning the top two with RandomizedSearchCV, the project arrives at a robust and well-validated XGBoost classifier. The saved Pickle files make it straightforward to plug this model into a Flask API, Streamlit web app, or any other deployment environment.
 

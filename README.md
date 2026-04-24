@@ -334,8 +334,8 @@ loan-eligibility-prediction/
 
 ---
 
-- 📈Model Comparison ![Model Comparison](loan_viz_output\11_model_comparison_bar.png)
-- 🏥Loan Bucket Approval ![Bucket Approval](loan_viz_output\10_loan_bucket_approval.png)
+- 📈Model Comparison ![Model Comparison](loan_viz_output/11_model_comparison_bar.png)
+- 🏥Loan Bucket Approval ![Bucket Approval](loan_viz_output/10_loan_bucket_approval.png)
 This Loan Eligibility Prediction project demonstrates a complete machine learning pipeline — from raw data exploration and cleaning through to a deployed, serialized model ready for integration into a banking application.
 
 By addressing class imbalance with SMOTE, comparing seven algorithms, and fine-tuning the top two with RandomizedSearchCV, the project arrives at a robust and well-validated XGBoost classifier. The saved Pickle files make it straightforward to plug this model into a Flask API, Streamlit web app, or any other deployment environment.

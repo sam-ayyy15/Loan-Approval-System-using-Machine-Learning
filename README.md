@@ -7,7 +7,7 @@
 
 ---
 
-## Project Overview
+
 
 This project builds a Loan Eligibility Prediction System using supervised machine learning. Given a set of applicant details — such as income, credit history, education, and property area — the system predicts whether a loan application should be approved or rejected.
 
